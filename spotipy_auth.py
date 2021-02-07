@@ -50,9 +50,14 @@ def client_credentials_flow():
     import spotipy
     from spotipy.oauth2 import SpotifyClientCredentials
 
-    sp = spotipy.Spotify(auth_manager=SpotifyClientCredentials(client_id=SPOTIPY_CLIENT_ID,
-                                                               client_secret=SPOTIPY_CLIENT_SECRET))
+    sp = spotipy.Spotify(
+        auth_manager=SpotifyClientCredentials(
+            client_id=SPOTIPY_CLIENT_ID,
+            client_secret=SPOTIPY_CLIENT_SECRET
+        )
+    )
 
+    # Example:
     results = sp.search(q='weezer', limit=20)
     for index, track in enumerate(results['tracks']['items']):
         print(index, track['name'])
@@ -103,7 +108,7 @@ def authorization_flow(scope=""):
 
     :param scope: space separated Spotify scopes
 
-    :return: user Name, ID and URI
+    :return: Spotipy Client
     """
 
     # With user authentication
@@ -113,10 +118,14 @@ def authorization_flow(scope=""):
     from spotipy.oauth2 import SpotifyOAuth
 
     # Create a Spotify API Client
-    sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id=SPOTIPY_CLIENT_ID,
-                                                   client_secret=SPOTIPY_CLIENT_SECRET,
-                                                   redirect_uri=SPOTIPY_REDIRECT_URI,
-                                                   scope=scope))
+    sp = spotipy.Spotify(
+        auth_manager=SpotifyOAuth(
+            client_id=SPOTIPY_CLIENT_ID,
+            client_secret=SPOTIPY_CLIENT_SECRET,
+            redirect_uri=SPOTIPY_REDIRECT_URI,
+            scope=scope
+        )
+    )
 
     return sp
 

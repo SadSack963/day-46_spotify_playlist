@@ -16,11 +16,17 @@ user_id = user["id"]
 
 # Create a Spotify Playlist and get the Playlist ID
 playlist_name = f"Hot 100: {date_reqd}"
-response = sp.user_playlist_create(user=user_id, name=playlist_name, public=False, collaborative=False, description='Hot 100 from billboard.com')
+response = sp.user_playlist_create(
+    user=user_id,
+    name=playlist_name,
+    public=False,
+    collaborative=False,
+    description='Hot 100 from billboard.com'
+)
 # print(response)
 playlist_id = response["id"]
 
-# Search Spotify for tracks
+# Search Spotify for tracks and add the URI to list
 year = date_reqd.split("-")[0]
 song_uris = []
 for song in list_songs:
@@ -30,7 +36,12 @@ for song in list_songs:
         tag, genre, upc (Universal Product Code), isrc (International Standard Recording Code)
         NOT excludes results
     """
-    song_details = sp.search(q=f"track:{song} year:{year}", limit=1, type="track", market="from_token")
+    song_details = sp.search(
+        q=f"track:{song} year:{year}",
+        limit=1,
+        type="track",
+        market="from_token"
+    )
     # print(song_details)
     try:
         song_uri = song_details["tracks"]["items"][0]["uri"]
@@ -40,4 +51,8 @@ for song in list_songs:
         print(f"{song} doesn't exist on Spotify.")
 
 # Add tracks to Spotify Playlist
-sp.playlist_add_items(playlist_id=playlist_id, items=song_uris, position=None)
+sp.playlist_add_items(
+    playlist_id=playlist_id,
+    items=song_uris,
+    position=None
+)
