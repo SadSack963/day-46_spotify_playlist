@@ -27,9 +27,9 @@ load_dotenv("E:/Python/EnvironmentVariables/.env")
 SPOTIPY_CLIENT_ID = os.getenv("Client_ID_Spotify")
 SPOTIPY_CLIENT_SECRET = os.getenv("Client_Secret_Spotify")
 SPOTIPY_REDIRECT_URI = os.getenv("Redirect_URI_Spotify")
-SPOTIPY_OAUTH_AUTHORIZE_URL = os.getenv("OAuth_Authorize_URL_Spotify")
-SPOTIPY_OAUTH_TOKEN_URL = os.getenv("OAuth_Token_URL_Spotify")
-SPOTIFY_BEARER_TOKEN = "###"  # This is in the .config file and expires after 1 hour
+# SPOTIPY_OAUTH_AUTHORIZE_URL = os.getenv("OAuth_Authorize_URL_Spotify")
+# SPOTIPY_OAUTH_TOKEN_URL = os.getenv("OAuth_Token_URL_Spotify")
+# SPOTIFY_BEARER_TOKEN = "###"  # This is in the .config file and expires after 1 hour
 
 
 def client_credentials_flow():
@@ -99,9 +99,11 @@ def authorization_flow(scope=""):
         Users
             user-read-email \n
             user-read-private
-        If no scopes are requested, only public resources (e.g. public playlists) will be accessible.
+        If no scopes are requested, only public resources (e.g. public playlists) will be accessible. \n
 
-    :param: scope: space separated Spotify scopes
+    :param scope: space separated Spotify scopes
+
+    :return: user Name, ID and URI
     """
 
     # With user authentication
@@ -110,15 +112,11 @@ def authorization_flow(scope=""):
     import spotipy
     from spotipy.oauth2 import SpotifyOAuth
 
+    # Create a Spotify API Client
     sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id=SPOTIPY_CLIENT_ID,
                                                    client_secret=SPOTIPY_CLIENT_SECRET,
                                                    redirect_uri=SPOTIPY_REDIRECT_URI,
                                                    scope=scope))
 
-    results = sp.current_user_saved_tracks()
-    print(sp.current_user())
-
-    for index, item in enumerate(results['items']):
-        track = item['track']
-        print(index, track['artists'][0]['name'], " – ", track['name'])
+    return sp
 

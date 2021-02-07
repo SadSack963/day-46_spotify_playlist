@@ -2,19 +2,19 @@
 Gets a list of songs for a given year from billboard.com
 """
 
-DATA_FILE = "./data/hot_100.html"
+DATA_FILE = ""
 
 
-def get_web_page():
+def get_web_page(date_reqd):
     """
     Read web page for a given year and save to file.
 
+    :param date_reqd: string YYYY-MM-DD
     :return: nothing
     """
 
     import requests
 
-    date_reqd = input("What date do you want to go to? (YYYY-MM-DD): ")
     # Get a snapshot of the web page
     url = "https://www.billboard.com/charts/hot-100/" + date_reqd
 
@@ -26,20 +26,24 @@ def get_web_page():
         fp.write(response.text)
 
 
-def read_web_file():
+def read_web_file(date_reqd):
     """
     Read web page from file. If no file, then get new snapshot.
 
+    :param date_reqd: string YYYY-MM-DD
     :return: BeautifulSoup object
     """
 
     from bs4 import BeautifulSoup
     # import lxml
 
+    global DATA_FILE
+    DATA_FILE = f"./data/{date_reqd}.html"
+
     try:
         open(DATA_FILE)
     except FileNotFoundError:
-        get_web_page()
+        get_web_page(date_reqd)
     else:
         pass
     finally:
@@ -63,17 +67,19 @@ def get_all_titles(soup):
     for title in all_titles:
         text = title.getText()
         title_texts.append(text)
+
     return title_texts
 
 
-def get_song_titles():
+def get_song_titles(date_reqd):
     """
     Read web page from file if it already exists, else get new snapshot of the web page.
 
+    :param date_reqd: string YYYY-MM-DD
     :return: list of song titles
     """
 
-    result = read_web_file()
+    result = read_web_file(date_reqd)
     titles = get_all_titles(result)
     # print(titles)
     return titles
