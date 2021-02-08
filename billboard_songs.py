@@ -61,8 +61,8 @@ def get_all_titles(soup):
     :return: list of song titles
     """
 
-    # Get all article HTML elements
-    all_titles = soup.findAll(class_="chart-element__information__song text--truncate color--primary")
+    # Get all song title HTML elements
+    all_titles = soup.findAll(name="span", class_="chart-element__information__song text--truncate color--primary")
     title_texts = []
     for title in all_titles:
         text = title.getText()
