@@ -1,6 +1,9 @@
 import billboard_songs as bb
 import spotipy_auth
 
+"""
+    Read ./Notes/Spotify - Create an App.odt
+"""
 
 # Get list of songs for a given date
 date_reqd = input("What date do you want to go to? (YYYY-MM-DD): ")
@@ -37,10 +40,11 @@ for song in list_songs:
         NOT excludes results
     """
     song_details = sp.search(
-        q=f"track:{song} year:{year}",
+        q=f"track:{song}",  # year:{year}",
         limit=1,
         type="track",
-        market="from_token"
+        # market="from_token",
+        market="GB",
     )
     # print(song_details)
     try:

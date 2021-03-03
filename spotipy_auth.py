@@ -24,12 +24,22 @@ from dotenv import load_dotenv
 
 
 load_dotenv("E:/Python/EnvironmentVariables/.env")
-SPOTIPY_CLIENT_ID = os.getenv("Client_ID_Spotify")
-SPOTIPY_CLIENT_SECRET = os.getenv("Client_Secret_Spotify")
+
+# Billboard to Spotify App
+# ========================
+# SPOTIPY_CLIENT_ID = os.getenv("Client_ID_Spotify")
+# SPOTIPY_CLIENT_SECRET = os.getenv("Client_Secret_Spotify")
+
+# Test_App
+# ========
+SPOTIPY_CLIENT_ID = os.getenv("Client_ID_Test_App")
+SPOTIPY_CLIENT_SECRET = os.getenv("Client_Secret_Test_App")
+
 SPOTIPY_REDIRECT_URI = os.getenv("Redirect_URI_Spotify")
 # SPOTIPY_OAUTH_AUTHORIZE_URL = os.getenv("OAuth_Authorize_URL_Spotify")
 # SPOTIPY_OAUTH_TOKEN_URL = os.getenv("OAuth_Token_URL_Spotify")
 # SPOTIFY_BEARER_TOKEN = "###"  # This is in the .config file and expires after 1 hour
+
 
 
 def client_credentials_flow():
