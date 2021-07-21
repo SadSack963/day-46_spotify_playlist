@@ -46,7 +46,7 @@ for song in list_songs:
         # market="from_token",
         market="GB",
     )
-    # print(song_details)
+    print(f'song_details: \n{song_details}')
     try:
         song_uri = song_details["tracks"]["items"][0]["uri"]
         # print(song_uri)
