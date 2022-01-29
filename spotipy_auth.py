@@ -139,3 +139,10 @@ def authorization_flow(scope=""):
 
     return sp
 
+
+if __name__ == "__main__":
+    sp = authorization_flow(scope="playlist-modify-private")
+    user = sp.current_user()
+    print(user)
+    user_id = user["id"]
+    print(user_id)

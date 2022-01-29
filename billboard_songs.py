@@ -62,11 +62,14 @@ def get_all_titles(soup):
     """
 
     # Get all song title HTML elements
-    all_titles = soup.findAll(name="span", class_="chart-element__information__song text--truncate color--primary")
-    title_texts = []
-    for title in all_titles:
-        text = title.getText()
-        title_texts.append(text)
+    # ############# Billboard has changed! #############
+    # all_titles = soup.findAll(name="span", class_="chart-element__information__song text--truncate color--primary")
+    all_titles = soup.find_all("h3", id="title-of-a-story", class_="a-font-primary-bold-s")
+    # title_texts = []
+    # for title in all_titles:
+    #     text = title.getText().strip()
+    #     title_texts.append(text)
+    title_texts = [title.getText().strip() for title in all_titles]
 
     return title_texts
 
@@ -83,3 +86,8 @@ def get_song_titles(date_reqd):
     titles = get_all_titles(result)
     # print(titles)
     return titles
+
+
+if __name__ == "__main__":
+    songs = get_song_titles("2008-08-08")
+    print(songs)
